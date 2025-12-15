@@ -13,7 +13,7 @@ pipeline {
         stage("Docker Build") {
             steps {
                 sh """
-                    docker build -t notes-app:latest .
+                    docker build -t notes-app:latest mynotes/
                 """
             }
         }
