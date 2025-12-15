@@ -1,22 +1,40 @@
-pipeline{
-    agent any
-    
-    stages{
-        stage('Build Docker Images') {
+pipeline {
+    agent { any }
+
+    stages {
+
+        stage("Code Clone") {
             steps {
-                echo "Building Docker images..."
-                sh "docker compose build"
+                sh "whoami"
+                git branch: 'main',
+                    url: 'https://github.com/ashwinibajanghate/Django_Notes_App.git'
             }
         }
-        stage("Push to DockerHub"){
-            steps{
-                echo "this is image push to dockerHub"
+
+        stage("Docker Build") {
+            steps {
+                sh """
+                    docker build -t notes-app:latest .
+                """
             }
         }
-        stage('Deploy Containers') {
+
+        stage("Push to DockerHub") {
             steps {
-                echo "Starting new containers..."
-                sh "docker compose down && docker compose up -d"
+                sh """
+                    docker login -u ashubajanghate -p dckr_pat_-E8kZZuQ05S8SnoQXzs32dydP1c
+                    docker tag notes-app:latest ashubajanghate/notes-app:latest
+                    docker push ashubajanghate/notes-app:latest
+                """
+            }
+        }
+
+        stage("Deploy") {
+            steps {
+                sh """
+                    docker rm -f notes-app || true
+                    docker run -d --name notes-app -p 8000:8000 ashubajanghate/notes-app:latest
+                """
             }
         }
     }
