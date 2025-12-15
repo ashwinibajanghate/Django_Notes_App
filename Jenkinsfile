@@ -31,8 +31,7 @@ pipeline {
         stage("Deploy") {
             steps {
                 sh """
-                    docker rm -f notes-app || true
-                    docker run -d --name notes-app-1 -p 8000:8000 ashubajanghate/notes-app:latest
+                    sh "docker compose down && docker compose up -d"
                 """
             }
         }
