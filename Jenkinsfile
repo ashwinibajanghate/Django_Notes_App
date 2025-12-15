@@ -5,6 +5,7 @@ pipeline {
         stage("Code Clone") {
             steps {
                 sh "whoami"
+                deleteDir()
                 git branch: 'main',
                     url: 'https://github.com/ashwinibajanghate/Django_Notes_App.git'
             }
@@ -13,7 +14,7 @@ pipeline {
         stage("Docker Build") {
             steps {
                 sh """
-                    docker build -t notes-app:latest .
+                    docker build --no-cache -t notes-app:latest .
                 """
             }
         }
@@ -30,7 +31,11 @@ pipeline {
 
         stage("Deploy") {
             steps {
-                  sh "docker compose down && docker compose up -d"
+                   sh """
+            docker compose down
+            docker compose pull
+            docker compose up -d --force-recreate
+        """
                
             }
         }
