@@ -11,7 +11,7 @@ const Header = () => {
         textAlign: "center"
       }}
     >
-      <h1>Notes Nagpur Hingna ✅</h1>
+      <h1>Notes App</h1>
     </div>
   );
 };
