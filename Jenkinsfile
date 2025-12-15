@@ -32,6 +32,7 @@ pipeline {
         stage("Deploy") {
             steps {
                    sh """
+            docker login -u ashubajanghate -p dckr_pat_-E8kZZuQ05S8SnoQXzs32dydP1c
             docker compose down
             docker compose pull
             docker compose up -d --force-recreate
