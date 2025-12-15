@@ -1,9 +1,19 @@
-const Header = () => {
-    return (
-        <div className="app-header">
-            <h1>Notes Nagpur Hingna</h1>
-        </div>
-    )
-}
+import React from "react";
 
-export default Header
+const Header = () => {
+  return (
+    <div
+      className="app-header"
+      style={{
+        padding: "20px",
+        backgroundColor: "#222",
+        color: "#fff",
+        textAlign: "center"
+      }}
+    >
+      <h1>Notes Nagpur Hingna ✅</h1>
+    </div>
+  );
+};
+
+export default Header;
